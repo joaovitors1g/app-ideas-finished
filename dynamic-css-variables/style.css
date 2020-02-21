@@ -1,0 +1,12 @@
+.password-input {
+  --password-input-bg: transparent;
+
+  background-color: var(--password-input-bg) !important;
+}
+
+.user-id-input {
+  --text-input-bg: transparent;
+  --text-input-font-size: 16px;
+  background-color: var(--text-input-bg) !important;
+  font-size: var(--text-input-font-size) !important;
+}

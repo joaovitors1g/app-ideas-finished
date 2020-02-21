@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic-CSS-Variables</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <form class="col s12" method="POST">
+          <div class="row">
+            <div class="input-field col s4">
+              <i class="material-icons prefix">account_circle</i>
+              <input
+                id="icon_prefix"
+                type="text"
+                class="validate text-input user-id-input"
+                required
+                name="userid"
+              />
+              <label for="icon_prefix">User ID</label>
+            </div>
+            <div class="input-field col s4 ">
+              <i class="material-icons prefix">lock</i>
+              <input
+                id="icon_telephone"
+                type="password"
+                class="validate text-input password-input"
+                required
+                name="password"
+              />
+              <label for="icon_telephone">Password</label>
+            </div>
+          </div>
+          <button
+            class="waves-effect waves-light btn indigo lighten-2"
+            type="submit"
+          >
+            Sign in
+          </button>
+          <button
+            class="waves-effect waves-light btn red darken-1"
+            id="cancel"
+            type="button"
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      const inputs = document.querySelectorAll('.text-input');
+      const form = document.querySelector('form');
+      const cancelBtn = document.getElementById('cancel');
+      cancelBtn.addEventListener('click', () => {
+        inputs.forEach(input => {
+          input.style.setProperty('--password-input-bg', 'transparent');
+          input.style.setProperty('--text-input-bg', 'transparent');
+        });
+      });
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        inputs.forEach(input => {
+          if (/\s+/.test(input.value)) {
+            alert('One of the inputs have spaces in the value');
+            input.getAttribute('name') === 'userid'
+              ? input.style.setProperty(
+                  '--text-input-bg',
+                  'rgba(205, 222, 18, 0.3)'
+                )
+              : input.style.setProperty(
+                  '--password-input-bg',
+                  'rgba(205, 222, 18, 0.3)'
+                );
+            input.style.fontSize = '27px';
+          }
+          if (
+            input.getAttribute('name') === 'userid' &&
+            input.value !== 'testuser'
+          ) {
+            alert('User should be testuser');
+            input.style.setProperty(
+              '--text-input-bg',
+              'rgba(224, 25, 25, 0.3)'
+            );
+            input.style.setProperty('--text-input-font-size', '26px');
+          }
+          if (
+            input.getAttribute('name') === 'password' &&
+            input.value !== 'mypassword'
+          ) {
+            alert('Password should be mypassword');
+            input.style.setProperty(
+              '--password-input-bg',
+              'rgba(224, 25, 25, 0.3)'
+            );
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
