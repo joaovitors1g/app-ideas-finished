@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binary To Decimal</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Binary To Decimal Converter</h1>
+      <label for="binary">Binary Number</label>
+      <input type="text" id="binary" />
+      <span id="decimal"></span>
+    </div>
+    <script>
+      const decimalResult = document.getElementById('decimal');
+      const binaryInput = document.getElementById('binary');
+      const validKeys = [48, 49, 8];
+      binaryInput.addEventListener('keyup', e => {
+        console.log(e.keyCode);
+        if (!validKeys.includes(e.keyCode)) {
+          alert("Ops, you can only type 0's and 1's");
+          binaryInput.value = binaryInput.value.replace(/[^0-1]/g, '');
+        }
+        const value = parseInt(binaryInput.value, 2);
+        if (isNaN(value)) return;
+        decimalResult.innerText = value;
+      });
+    </script>
+  </body>
+</html>

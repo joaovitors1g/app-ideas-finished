@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dollars to Cents</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="input-field col s4 offset-s3">
+          <input placeholder="58" id="dollars" type="text" class="validate" />
+          <label for="dollars">Valor</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <blockquote id="result">
+            0 quarters, 0 dimes, 0 nickel and 0 pennies
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      const dollarsInput = $('#dollars');
+      const result = $('#result');
+      dollarsInput.addEventListener('keyup', () => {
+        if (dollarsInput.value === '') return;
+        const value = parseInt(dollarsInput.value);
+        if (Number.isNaN(value)) {
+          alert('Invalid number');
+          return;
+        }
+        const quarters = getValue(value, 25);
+        const dimes = getValue(quarters.rest, 10);
+        const nickel = getValue(dimes.rest, 5);
+        const pennies = getValue(nickel.rest, 1);
+        result.innerHTML = `${quarters.amountOfDivisions} quarters, ${dimes.amountOfDivisions} dimes, ${nickel.amountOfDivisions} nickel and ${pennies.amountOfDivisions} pennies`;
+      });
+
+      function getValue(otherVal, subtractBy) {
+        let amountOfDivisions = 0;
+        while (otherVal - subtractBy >= 0) {
+          otherVal -= subtractBy;
+          amountOfDivisions++;
+        }
+        return {
+          amountOfDivisions,
+          rest: otherVal
+        };
+      }
+
+      function $(sel) {
+        return document.querySelector(sel);
+      }
+    </script>
+  </body>
+</html>

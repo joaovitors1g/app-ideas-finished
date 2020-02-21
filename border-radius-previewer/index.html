@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Border Radius Previewer</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Krona+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/dracula-prism/css/dracula-prism.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Border Radius Previewer</h1>
+      <div id="box"></div>
+      <label for="top-right">Top Right</label>
+      <input type="number" max="9999" min="1" id="top-right" />
+      <label for="top-left">Top Left</label>
+
+      <input type="number" max="9999" min="1" id="top-left" />
+      <label for="bottom-left">Bottom Left</label>
+
+      <input type="number" max="9999" min="1" id="bottom-left" />
+      <label for="bottom-right">Bottom Right</label>
+
+      <input type="number" max="9999" min="1" id="bottom-right" />
+
+      <pre class="lang-css ">
+      <code id="resultingCSS" class="lang-css"></code>
+     </pre>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="prism.js"></script>
+    <script>
+      const box = document.getElementById('box');
+      const topRightInput = document.getElementById('top-right');
+      const topLeftInput = document.getElementById('top-left');
+      const leftInput = document.getElementById('bottom-left');
+      const rightInput = document.getElementById('bottom-right');
+      const code = document.getElementById('resultingCSS');
+      const ctc = document.getElementById('ctc');
+      topRightInput.addEventListener('keyup', () =>
+        changeBorderRadius(topRightInput.value, 'borderTopRightRadius')
+      );
+      topLeftInput.addEventListener('keyup', () =>
+        changeBorderRadius(topLeftInput.value, 'borderTopLeftRadius')
+      );
+      leftInput.addEventListener('keyup', () =>
+        changeBorderRadius(leftInput.value, 'borderBottomLeftRadius')
+      );
+      rightInput.addEventListener('keyup', () =>
+        changeBorderRadius(rightInput.value, 'borderBottomRightRadius')
+      );
+      function changeBorderRadius(value, rule) {
+        box.style[rule] = `${value}px`;
+        setCSS();
+      }
+
+      function setCSS() {
+        const topRightValue = topRightInput.value;
+        const topLeftValue = topLeftInput.value;
+        const bottomRightValue = rightInput.value;
+        const bottomLeftValue = leftInput.value;
+        const cssCode = `
+          border-radius: ${topLeftValue}px ${topRightValue}px ${bottomRightValue}px ${bottomLeftValue}px;
+        `;
+        code.innerHTML = cssCode;
+        new ClipboardJS(document.querySelector('.toolbar-item button'), {
+          text: function() {
+            return cssCode;
+          }
+        });
+        Prism.highlightAll();
+      }
+    </script>
+  </body>
+</html>

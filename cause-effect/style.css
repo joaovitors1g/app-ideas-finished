@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.container {
+  max-width: 900px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:focus {
+  background: yellow;
+}
+li {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+}
+
+li:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+li:nth-child(even) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.person-info {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem 1.3rem;
+  border-radius: 4px;
+  line-height: 2;
+}
